@@ -1,4 +1,4 @@
-# vuedo
+# Vuetodo
 
 > Vue Todo
 
