@@ -2,7 +2,7 @@
   <div class="app">
     <section class="todo-app">
       <header class="app-header">
-        Hello, {{name}}
+        Hello, {{sharedState.name}}
         <router-link to="/add">
           <button class="add-todo">Add</button>
         </router-link>
@@ -19,11 +19,12 @@
 </template>
 
 <script>
+import Store from './Store'
 export default {
   name: 'App',
   data: function () {
     return {
-      name: 'Nils'
+      sharedState: Store.state
     }
   }
 }

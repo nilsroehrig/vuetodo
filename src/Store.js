@@ -47,7 +47,8 @@ let initialState = {
     done: false,
     dueDate: new Date(new Date().setTime(new Date().getTime() - 96 * 60 * 60 * 1000))
   }],
-  activeFilter: 'all'
+  activeFilter: 'all',
+  name: null
 }
 
 const fromStorage = readStorage()
@@ -82,6 +83,10 @@ export default {
       throw new Error('Invalid filter')
     }
     this.state.activeFilter = filter
+    updateStorage(this.state)
+  },
+  setName (name) {
+    this.state.name = name
     updateStorage(this.state)
   }
 }
