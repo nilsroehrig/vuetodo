@@ -1,5 +1,5 @@
 <template>
-  <form action="#" method="post" class="add-todo-form" @submit="createTodo">
+  <form action="#" method="post" class="add-todo-form" @submit.prevent="createTodo">
     <strong class="add-todo-headline">Create Todo</strong>
     <label class="add-todo-label" for="todo-title">Title: </label>
     <input v-model="title" class="add-todo-input" type="text" name="todo-title" id="todo-title" placeholder="Todo title...">
@@ -27,8 +27,7 @@ export default {
     }
   },
   methods: {
-    createTodo (ev) {
-      ev.preventDefault()
+    createTodo () {
       Store.addTodo({
         title: this.title,
         dueDate: new Date(Date.parse(this.date))

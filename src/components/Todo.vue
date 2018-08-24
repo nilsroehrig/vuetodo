@@ -36,4 +36,8 @@ export default {
   .todo-checkbox, .title, .todo-delete {
     cursor: pointer;
   }
+
+  .done {
+    text-decoration-line: line-through;
+  }
 </style>

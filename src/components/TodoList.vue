@@ -1,6 +1,20 @@
 <template>
   <div class="todo-list">
-    <div v-if="sharedState.todos.length === 0"><i>Everything's done :)</i></div>
+    <ul class="filters">
+      <li v-bind:class="{
+        filter: true,
+        'active-filter': this.sharedState.activeFilter === 'all'
+      }"><a href="#" class="filter-link" @click="setFilter('all')">all</a></li>
+      <li v-bind:class="{
+        filter: true,
+        'active-filter': this.sharedState.activeFilter === 'open'
+      }"><a href="#" class="filter-link" @click="setFilter('open')">open</a></li>
+      <li v-bind:class="{
+        filter: true,
+        'active-filter': this.sharedState.activeFilter === 'closed'
+      }"><a href="#" class="filter-link" @click="setFilter('closed')">closed</a></li>
+    </ul>
+    <div v-if="this.filteredTodos.length === 0"><i>Everything's done :)</i></div>
     <template v-if="this.todosOverdue.length">
       <strong class="list-headline overdue">Overdue</strong>
       <ul class="todos overdue">
@@ -65,16 +79,19 @@ export default {
   },
   computed: {
     todosOverdue: function () {
-      return this.sharedState.todos.filter(todo => (this.overdue(todo)))
+      return this.filteredTodos.filter(todo => this.overdue(todo))
     },
     todosToday: function () {
-      return this.sharedState.todos.filter(todo => this.dueToday(todo))
+      return this.filteredTodos.filter(todo => this.dueToday(todo))
     },
     todosTomorrow: function () {
-      return this.sharedState.todos.filter(todo => this.dueTomorrow(todo))
+      return this.filteredTodos.filter(todo => this.dueTomorrow(todo))
     },
     todosInTheFuture: function () {
-      return this.sharedState.todos.filter(todo => this.dueInTheFuture(todo))
+      return this.filteredTodos.filter(todo => this.dueInTheFuture(todo))
+    },
+    filteredTodos: function () {
+      return this.sharedState.todos.filter(this.applyActiveFilter)
     }
   },
   methods: {
@@ -110,12 +127,69 @@ export default {
     },
     deleteTodo (todo) {
       Store.deleteTodo(todo)
+    },
+    setFilter (filter) {
+      Store.setFilter(filter)
+    },
+    applyActiveFilter (todo) {
+      if (this.sharedState.activeFilter === 'open' && todo.done) {
+        return false
+      }
+      if (this.sharedState.activeFilter === 'closed' && !todo.done) {
+        return false
+      }
+
+      return true
     }
   }
 }
 </script>
 
 <style scoped>
+  .filters {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    position: relative;
+    justify-content: flex-start;
+  }
+
+  .filters:after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 2em);
+    border-bottom: solid thin #DDD;
+    bottom: 0;
+    left: -1em;
+  }
+
+  .filter {
+    text-align: center;
+    max-width: 30%;
+    border: solid thin transparent;
+    border-bottom: solid thin #DDD;
+  }
+
+  .filter + .filter {
+    margin-left: -1px;
+  }
+
+  .active-filter {
+    border-color: #DDD;
+    border-bottom-color: white;
+    position: relative;
+    z-index: 2;
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+  }
+
+  .filter-link {
+    display: block;
+    padding: 0.25em 1em;
+    outline: 0;
+  }
+
   .list-headline {
     color: #999;
     text-transform: uppercase;
