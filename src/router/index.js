@@ -27,8 +27,8 @@ const router = new Router({
   ]
 })
 
-router.beforeResolve((_, __, next) => {
-  if (Store.state.name === null) {
+router.beforeEach((to, from, next) => {
+  if (Store.state.name === null && to.path !== '/set-name') {
     next('/set-name')
   } else {
     next()

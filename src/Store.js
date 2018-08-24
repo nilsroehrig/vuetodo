@@ -79,9 +79,6 @@ export default {
     updateStorage(this.state)
   },
   setFilter (filter) {
-    if (!['all', 'open', 'closed'].includes(filter)) {
-      throw new Error('Invalid filter')
-    }
     this.state.activeFilter = filter
     updateStorage(this.state)
   },
