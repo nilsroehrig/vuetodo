@@ -54,5 +54,6 @@ jobs:
               cp dist/* . -rf
               rm dist -rf
               git add .
+              git commit -m "update for deployment \#${CIRCLE_BUILD_NUM}"
               git push origin gh-pages
             fi
