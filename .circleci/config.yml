@@ -37,10 +37,10 @@ jobs:
           command: |
             git config user.email "circleci@nroehrig.de"
             git config user.name "CircleCI"
-            git checkout package*.json
+            git stash
             git checkout gh-pages
-            mv build/* .
-            rm -rf build
+            mv dist/* .
+            rm -rf dist
             git push origin gh-pages
 
 
