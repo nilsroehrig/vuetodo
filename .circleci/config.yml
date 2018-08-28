@@ -39,8 +39,9 @@ jobs:
             git config user.name "CircleCI"
             git stash
             git checkout gh-pages
-            mv dist/* .
-            rm -rf dist
+            cp dist/* . -rf
+            rm dist -rf
+            git add .
             git push origin gh-pages
 
 
