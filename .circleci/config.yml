@@ -35,8 +35,8 @@ jobs:
       - run: npm run build
       - run:
           command: |
-            git config user.email "circleci@nroehrig.de"
-            git config user.name "CircleCI"
+            git config user.email $GIT_MAIL
+            git config user.name $GIT_USER
             git stash
             git checkout gh-pages
             cp dist/* . -rf
