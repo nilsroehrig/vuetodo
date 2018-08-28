@@ -1,6 +1,6 @@
 # Vuetodo
 
-> Vue Todo
+> Your friendly todo app!
 
 ## Build Setup
 
