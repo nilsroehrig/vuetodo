@@ -41,16 +41,22 @@ jobs:
 
       - run:
           name: Build app
-          command: npm run build
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm run build
+            fi
 
       - run:
           name: Deploy app to Github Pages
           command: |
-            git config user.email $GIT_MAIL
-            git config user.name $GIT_USER
-            git stash
-            git checkout gh-pages
-            cp dist/* . -rf
-            rm dist -rf
-            git add .
-            git push origin gh-pages
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config user.email $GIT_MAIL
+              git config user.name $GIT_USER
+              git stash
+              git checkout gh-pages
+              cp dist/* . -rf
+              rm dist -rf
+              git add .
+              git commit -m "update for deployment \#${CIRCLE_BUILD_NUM}"
+              git push origin gh-pages
+            fi
