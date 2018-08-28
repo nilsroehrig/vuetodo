@@ -26,14 +26,25 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install ci
+      - run:
+          name: Install dependencies
+          command: npm install ci
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm run build
+
       - run:
+          name: Test app
+          command: npm test
+
+      - run:
+          name: Build app
+          command: npm run build
+
+      - run:
+          name: Deploy app to Github Pages
           command: |
             git config user.email $GIT_MAIL
             git config user.name $GIT_USER
@@ -43,6 +54,3 @@ jobs:
             rm dist -rf
             git add .
             git push origin gh-pages
-
-
-

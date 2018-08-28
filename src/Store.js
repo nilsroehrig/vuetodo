@@ -61,7 +61,6 @@ export default {
   state: fromStorage || initialState,
   addTodo ({ title = 'untitled', done = false, dueDate = new Date() }) {
     const id = this.state.todos.reduce((max, todo) => Math.max(todo.id, max), 0) + 1
-    console.log(id)
     this.state.todos.push({ id, title, done, dueDate })
     updateStorage(this.state)
   },
