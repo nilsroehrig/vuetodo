@@ -62,5 +62,10 @@ jobs:
               rm dist -rf
               git add .
               git commit -m "update for deployment \#${CIRCLE_BUILD_NUM}"
-              git push origin gh-pages
+              if [ "$?" = "0" ]; then
+                git push origin gh-pages
+              elif [ "$?" = "1" ]; then
+                exit 0
+              fi
             fi
+
