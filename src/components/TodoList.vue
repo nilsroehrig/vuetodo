@@ -67,8 +67,9 @@
 </template>
 
 <script>
-import Store from '../Store'
-import Todo from './Todo'
+import Todo from '@/components/Todo'
+import Store from '@/Store'
+import TodoDue from '@/TodoDue'
 
 export default {
   components: { Todo },
@@ -106,21 +107,13 @@ export default {
       return dd < cd
     },
     dueToday (todo) {
-      const dd = todo.dueDate
-      const cd = new Date()
-      return `${dd.getUTCDate()}.${dd.getUTCMonth()}.${dd.getUTCFullYear}` === `${cd.getUTCDate()}.${cd.getUTCMonth()}.${cd.getUTCFullYear}`
+      return TodoDue.dueToday(todo)
     },
     dueTomorrow (todo) {
-      const dd = todo.dueDate
-      const td = new Date()
-      td.setUTCDate(td.getUTCDate() + 1)
-      return dd.getUTCDate() === td.getUTCDate()
+      return TodoDue.dueTomorrow(todo)
     },
     dueInTheFuture (todo) {
-      const dd = todo.dueDate
-      const td = new Date()
-      td.setUTCDate(td.getUTCDate() + 1)
-      return dd.getUTCDate() > td.getUTCDate()
+      return TodoDue.dueInTheFuture(todo)
     },
     toggleTodo (todo) {
       Store.toggleTodo(todo)
