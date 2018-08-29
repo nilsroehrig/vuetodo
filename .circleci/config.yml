@@ -58,6 +58,7 @@ jobs:
               git config user.name $GIT_USER
               git stash
               git checkout gh-pages
+              git checkout master .circleci
               cp dist/* . -rf
               rm dist -rf
               git add .
