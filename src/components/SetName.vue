@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     submitName () {
-      console.log(this.name)
       if (this.name.length < 2) {
         return
       }
