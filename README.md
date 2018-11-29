@@ -1,4 +1,4 @@
-# Vuewtodo
+# Vuetodo
 
 ## Project setup
 ```
