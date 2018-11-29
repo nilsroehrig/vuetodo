@@ -1,5 +1,6 @@
 {
-  "name": "vuetodo_3",
+  "name": "vuetodo",
+  "description": "Vue Todo",
   "version": "2.0.0",
   "private": true,
   "scripts": {
