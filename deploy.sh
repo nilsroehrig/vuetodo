@@ -8,7 +8,7 @@ npm run build
 
 # navigate into the build output directory
 cd dist
-
+cp ../.circleci . -r
 git init
 git add -A
 git commit -m "deploy #${CIRCLE_BUILD_NUM}"
