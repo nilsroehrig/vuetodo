@@ -10,6 +10,8 @@ npm run build
 cd dist
 
 git init
+git config --global user.email $GIT_MAIL
+git config --global user.name $GIT_USER
 git add -A
 git commit -m "deploy #${CIRCLE_BUILD_NUM}"
 
