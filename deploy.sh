@@ -8,7 +8,7 @@ npm run build
 
 # navigate into the build output directory
 cd dist
-
+cp ../.circleci . -r
 git init
 git config --global user.email $GIT_MAIL
 git config --global user.name $GIT_USER
